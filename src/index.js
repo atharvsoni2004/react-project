@@ -15,6 +15,9 @@ import DoctorAddAssistant from './DoctorAddAssistant';
 import DoctorAddPackage from './DoctorAddPackage';
 import DoctorEditAssistant from './DoctorEditAssistant';
 import DoctorEditPackage from './DoctorEditPackage';
+import AdminDoctorManagement from './AdminDoctorManagement';
+import DoctorProfile from './Doctorprofile';
+import AdminPackage from './AdminPackage';
 
 import NoPageFound from './NoPageFound';
 //create function which has routes
@@ -35,6 +38,9 @@ function MyRoutes() {
             <Route path='/doctor-edit-assistant' element={<DoctorEditAssistant />} />
             <Route path='/doctor-add-package' element={<DoctorAddPackage />} />
             <Route path='/doctor-edit-package' element={<DoctorEditPackage />} />
+            <Route path='/admin-doctor-management' element={<AdminDoctorManagement />} />
+            <Route path='/doctor-profile' element={<DoctorProfile />} />
+            <Route path='/admin-package' element={<AdminPackage />} />
             <Route path='*' element={<NoPageFound />} />
         </Routes>
     </BrowserRouter>);
