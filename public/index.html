@@ -14,22 +14,23 @@
 
   <!-- offline css -->
   <link href="%PUBLIC_URL%/admin/assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="%PUBLIC_URL%/admin/assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
   <link href="%PUBLIC_URL%/admin/assets/css/style.css" rel="stylesheet">
   <link href="%PUBLIC_URL%/dist/css/lightbox.min.css" rel="stylesheet" />
 </head>
 
-<body>
+<body cz-shortcut-listen="true">
   <noscript>You need to enable JavaScript to run this app.</noscript>
   <div id="root"></div>
-
-  
-  <!-- offline js -->
   <script src="%PUBLIC_URL%/admin/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
   <script src="%PUBLIC_URL%/admin/assets/js/main.js"></script>
   <script src="%PUBLIC_URL%/dist/js/lightbox-plus-jquery.min.js"></script>
-
+  <script>
+    function toggleSidebar() {
+      document.body.classList.toggle('toggle-sidebar');
+    }
+  </script>
   <script src="https://kit.fontawesome.com/20994dd270.js" crossorigin="anonymous"></script>
-
+  <script src="https://cdn.lordicon.com/lordicon.js"></script>
 </body>
-
 </html>
