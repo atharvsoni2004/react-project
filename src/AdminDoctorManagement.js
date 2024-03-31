@@ -51,9 +51,34 @@ export default function AdminDoctorManagement() {
         </td>
       </tr>);
   }
-  useEffect(() =>{
-    //api call
-    // let apiAddress = 
+  useEffect(()  =>  {
+    //create variable to store api address
+    let apiAddress = "http://www.theeasylearnacademy.com/doctor/ws/view_doctor.php";
+    //get method
+    fetch(apiAddress)
+    .then((response) => response.json())
+    .then((data) => {
+        console.log(data);
+        let error = data[0]['error'];
+        console.log(error);
+        if(error !== 'no') //it means error
+          alert(error);
+        else if(data[1]['total'] === 0)
+        {
+          alert('no doctor found');
+        }
+        else 
+        {
+            //remove 2 object from 0th index 
+            data.splice(0,2); //2 is not including 
+            console.log(data);
+             
+        }
+    })
+    .catch((error) => {
+        console.log(error);
+        alert('either you are or server is offline');
+    });
   })
   return (<>
     <Menu />

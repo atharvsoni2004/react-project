@@ -1,7 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-
 import AdminLogin from './AdminLogin';
 import AdminForgotPassword from './AdminForgotPassword';
 import DoctorForgotPassword from './DoctorForgotPassword';
@@ -18,6 +17,7 @@ import DoctorEditPackage from './DoctorEditPackage';
 import AdminDoctorManagement from './AdminDoctorManagement';
 import DoctorProfile from './Doctorprofile';
 import AdminPackage from './AdminPackage';
+import { withCookies } from 'react-cookie';
 
 import NoPageFound from './NoPageFound';
 //create function which has routes
@@ -46,4 +46,5 @@ function MyRoutes() {
     </BrowserRouter>);
 }
 const root = ReactDOM.createRoot(document.getElementById('root'));
-root.render(<MyRoutes />);
+var MyRoutesWithCookies = withCookies(MyRoutes);
+root.render(<MyRoutesWithCookies />);
