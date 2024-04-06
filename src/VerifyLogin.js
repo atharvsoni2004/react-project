@@ -1,15 +1,20 @@
-import { useCookies } from "react-cookie";
+import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-
-
-export default function VerifyLogin() {
+import { useCookies } from "react-cookie";
+export default function VerifyLogin()
+{
     let [cookies, setCookie, removeCookie] = useCookies(['theeasylearn']);
-    let navigate = useNavigate();
-
+    const navigate = useNavigate();
     console.log(cookies['adminid']);
-
-    if (cookies['adminid'] === undefined) {
-        // alert('you have not logged in');
-        navigate("/");
+    let Redirectlogin = function()
+    {
+        useEffect(()=>
+        {
+            navigate("/");
+        })
+    }
+    if(cookies['adminid']===undefined && cookies['doctorid']===undefined)
+    {
+        Redirectlogin();
     }
 }

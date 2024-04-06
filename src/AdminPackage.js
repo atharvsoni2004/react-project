@@ -3,11 +3,10 @@ import Menu from "./Menu";
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import getBase from "./api";
-import { showError,NetworkError } from "./toast-message";
+import { showError,NetworkError, showMessage } from "./toast-message";
 import { ToastContainer } from "react-toastify";
-import VerifyLogin from "./VerifyLogin";
+
 export default function AdminPackage() {
-  VerifyLogin();
   //create variable that has doctorid passed in route
   let { doctorid } = useParams();
   //create state array
@@ -36,6 +35,7 @@ export default function AdminPackage() {
             console.log(data);
             setPackage(data);
             setDoctorName(data[0]['name']);
+            showMessage('Data loaded');
           }
         }).catch((error) => {
           console.log("Fetch error:", error);

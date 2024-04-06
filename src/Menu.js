@@ -1,4 +1,8 @@
 import { Link } from "react-router-dom";
+function showhideSidebar() {
+     //   alert('hi');
+     document.body.classList.toggle('toggle-sidebar');
+}
 export default function Menu() {
      return ( //j
           <>
@@ -8,7 +12,7 @@ export default function Menu() {
                               <img src="../logo.png" alt />
                               <span className="d-none d-lg-block">Doctor Appointment</span>
                          </Link>
-                         <i className="bi bi-list toggle-sidebar-btn" onClick={toggleSidebar}></i>
+                         <i className="bi bi-list toggle-sidebar-btn" onClick={showhideSidebar}></i>
                     </div>{/* End Logo */}
                     <nav className="header-nav ms-auto">
                          <ul className="d-flex align-items-center">

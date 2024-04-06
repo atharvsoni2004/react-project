@@ -30,8 +30,8 @@ function MyRoutes() {
             <Route path='/doctor-forgot' element={<DoctorForgotPassword />} /> 
             <Route path='/doctor-register' element={<DoctorRegister />} /> 
             <Route path='/login' element={<DoctorLogin />} /> 
-            <Route path='/admin-appointment' element={<AdminAppointment />} /> 
-            <Route path='/admin-assitant' element={<AdminAssitant />} /> 
+            <Route path='/admin-appointments/:doctorid' element={<AdminAppointment />} /> 
+            <Route path='/admin-assitant/:doctorid' element={<AdminAssitant />} /> 
             <Route path='/admin-change-password' element={<AdminChangePassword />} /> 
             <Route path='/admin-compose-email' element={<AdminComposeEmail />} /> 
             <Route path='/doctor-add-assistant' element={<DoctorAddAssistant />} />
@@ -40,7 +40,7 @@ function MyRoutes() {
             <Route path='/doctor-edit-package' element={<DoctorEditPackage />} />
             <Route path='/admin-doctor-management' element={<AdminDoctorManagement />} />
             <Route path='/doctor-profile' element={<DoctorProfile />} />
-            <Route path='/admin-package' element={<AdminPackage />} />
+            <Route path='/admin-package/:doctorid' element={<AdminPackage />} />
             <Route path='*' element={<NoPageFound />} />
         </Routes>
     </BrowserRouter>);
