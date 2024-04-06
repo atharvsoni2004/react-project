@@ -6,10 +6,11 @@ function showhideSidebar() {
 }
 function Adminmenuitems ()
 { 
-     let [cookies,setCookies,removeCookies]=useCookies(['Atharv']);
-      if(cookies['adminid']!==undefined)
-      {
-               <>< li className="nav-item shadow-sm" >
+     let [cookies,setCookie,removeCookie]=useCookies('Atharv');
+     if(cookies['adminid']!==undefined)
+     {
+          return(<>
+               < li className="nav-item shadow-sm" >
                     <Link className="nav-link collapsed" to="/admin-home">
                          <i className="fa fa-home fa-2x" />
                          <span>Home</span>
@@ -20,11 +21,12 @@ function Adminmenuitems ()
                               <i className="fa fa-home fa-2x" />
                               <span>Doctors Management</span>
                          </Link>
-          </li></>;
+                    </li> 
+          </>)
      }
 }
 function Doctormenuitems(){    
-     let [cookies,setCookies,removeCookies]=useCookies(['Atharv'])
+     let [cookies,setCookie,removeCookie]=useCookies('Atharv')
      if(cookies['doctorid']!==undefined)
      {  return(<>
                <li className="nav-item shadow-sm">
@@ -61,7 +63,7 @@ function Doctormenuitems(){
 }
 function Assitantsmenuitems()
 {    
-     let [cookies,setCookies,removeCookies]=useCookies(['Atharv']);
+     let [cookies,setCookie,removeCookie]=useCookies('Atharv');
      if(cookies['assistantid']!==undefined)
      return(<>
                <li className="nav-item shadow-sm">
