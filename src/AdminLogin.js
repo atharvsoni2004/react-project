@@ -20,7 +20,7 @@ export default function AdminLogin() {
     let form =new FormData();
     form.append("email",email);
     form.append("password",password);
-   // console.log(form);
+    console.log(form);
     axios({
       method:'post',
       responseType:'json',

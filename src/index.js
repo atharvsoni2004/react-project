@@ -22,7 +22,6 @@ import { withCookies } from 'react-cookie';
 import NoPageFound from './NoPageFound';
 //create function which has routes
 function MyRoutes() {
-    console.log('myRoutes');
     return (<BrowserRouter>
         <Routes>
             <Route index path='/' element={<AdminLogin />} /> 
