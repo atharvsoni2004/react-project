@@ -6,7 +6,7 @@ import { ToastContainer } from "react-toastify";
 import VerifyLogin from  "./VerifyLogin";
 import { showError, showMessage,NetworkError } from "./toast-message";
 export default function AdminDoctorManagement() {
-  VerifyLogin();
+  // VerifyLogin();
   let [doctor,setDoctor] = useState([]);
   
   //inner function 

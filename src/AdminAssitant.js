@@ -1,42 +1,23 @@
+import { useEffect, useState } from "react";
 import Menu from "./Menu";
 import { Link } from "react-router-dom";
 import getBase from "./api";
 import { useParams } from "react-router-dom";
-import { useState,useEffect } from "react";
 import axios from 'axios';
 import { NetworkError,showError } from "./toast-message";
 import { ToastContainer } from "react-toastify";
+import { useCookies } from "react-cookie";
 
 export default function AdminAssitant() {
         let {doctorid} = useParams();
         console.log(doctorid);
         //create state array
         let [assistants,setAssistant] = useState([]);
-        //create state variable
         let [doctorname,setDoctorName] = useState();
+        let [cookie,setCookie,removeCookie]=useState();
+        // var [isDataFetched,setIsDataFetched] = useState(false); 
 
-       let displayAssistant=function(item)
-        {
-            return(
-                <tr>
-                    <td>{item.id}</td>
-                    <td>{item.name}</td>
-                    <td>{item.email}</td>
-                    <td>
-                <a title="edit assitant" href="doctor-edit-assitant.html"><i className="fa fa-pencil fa-2x" /></a>
-                <a title="remove assitant" href="#"><i className="fa fa-trash fa-2x" /></a>
-            </td>
-                </tr>
-            )
-        }
-
-        let assistantnotfound=function()
-        {
-            return(<tr><td colSpan='4' className="text-center text-danger fs-3">No Assitant Added</td></tr>)
-        }
-
-        useEffect(()=>
-        {
+        useEffect(()=>{
             let apiAddress=getBase()+"assitant.php?doctorid="+  doctorid;
             console.log(apiAddress);
             //axios calling
@@ -59,6 +40,51 @@ export default function AdminAssitant() {
                 }
             })
         })
+
+       let Displaylinks = function(){
+        if (cookie['doctorid'] !== undefined) {
+            return (
+                <>
+                    <Link title="edit assistant" to={"/doctor-edit-assistant/" }>
+                        <i className="fa fa-pencil fa-2x" />
+                    </Link>
+                    <Link
+                        title="remove assistant"
+                        to=""
+                        onClick={(e) => {
+                            console.log("Remove assistant link clicked");
+                            // deleteAssitant(props.assistantid);
+                        }}
+                    >
+                        <i className="fa fa-trash fa-2x" />
+                    </Link>
+                </>
+            );
+        }
+        
+       }
+           
+
+       let displayAssistant=function(item)
+        {
+            return(
+                <tr>
+                    <td>{item.id}</td>
+                    <td>{item.name}</td>
+                    <td>{item.email}</td>
+                    <td>
+                <Displaylinks/>
+            </td>
+                </tr>
+            )
+        }
+
+        let assistantnotfound=function()
+        {
+            return(<tr><td colSpan='4' className="text-center text-danger fs-3">No Assitant Added</td></tr>)
+        }
+
+           
     return (
         <>
             <Menu />

@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import {useCookies} from "react-cookie";
+import Logout from "./logout";
 function showhideSidebar() {
      //   alert('hi');
      document.body.classList.toggle('toggle-sidebar');
@@ -42,19 +43,19 @@ function Doctormenuitems(){
                     </Link>
                </li>
                <li className="nav-item shadow-sm">
-                              <Link className="nav-link collapsed" to="/admin-package">
+                              <Link className="nav-link collapsed" to={"/admin-package/" + cookies['doctorid']}>
                          <i className="fa fa-home fa-2x" />
                          <span>My Package</span>
                     </Link>
                </li>
                <li className="nav-item shadow-sm">
-                              <Link className="nav-link collapsed" to="/admin-assitant">
+                              <Link className="nav-link collapsed" to={"/admin-assitant/" + cookies['doctorid']}>
                          <i className="fa fa-home fa-2x" />
                          <span>My Assitants</span>
                     </Link>
                </li>
                <li className="nav-item shadow-sm">
-                              <Link className="nav-link collapsed" to="/admin-appointment">
+                              <Link className="nav-link collapsed" to={"/admin-appointments/" + cookies['doctorid']}>
                          <i className="fa fa-home fa-2x" />
                          <span>My Appointments</span>
                     </Link>
@@ -109,7 +110,7 @@ return (    <>
                               </Link>
                          </li>
                          <li className="nav-item shadow-sm">
-                              <Link className="nav-link collapsed" to="#">
+                              <Link className="nav-link collapsed" to="/logout">
                                    <i className="fa fa-home fa-2x" />
                                    <span>Logout</span>
                               </Link>

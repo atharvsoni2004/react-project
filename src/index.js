@@ -7,6 +7,7 @@ import DoctorForgotPassword from './DoctorForgotPassword';
 import DoctorRegister from './DoctorRegister';
 import DoctorLogin from './DoctorLogin';
 import AdminAppointment from './AdminAppointment';
+import Logout from './logout';
 import AdminAssitant from './AdminAssitant';
 import AdminChangePassword from './AdminChangePassword';
 import AdminComposeEmail from './AdminComposeEmail';
@@ -29,6 +30,7 @@ function MyRoutes() {
             <Route path='/doctor-forgot' element={<DoctorForgotPassword />} /> 
             <Route path='/doctor-register' element={<DoctorRegister />} /> 
             <Route path='/login' element={<DoctorLogin />} /> 
+            <Route path='/logout' element={<Logout />} /> 
             <Route path='/admin-appointments/:doctorid' element={<AdminAppointment />} /> 
             <Route path='/admin-assitant/:doctorid' element={<AdminAssitant />} /> 
             <Route path='/admin-change-password' element={<AdminChangePassword />} /> 

@@ -17,7 +17,7 @@ export default function DoctorEditAssistant() {
             <Link to="/admin-assitant" className="btn btn-light"><i className="fa-solid fa-angle-left" /> Back</Link>
           </div>
           <div className="card-body mt-2">
-            <form className="row g-3 needs-validation" noValidate>
+            <form className="row g-3 needs-validation" >
               <div className="col-12">
                 <label htmlFor="name" className="form-label"><i className="fa-solid fa-pen-to-square fa-xs" /> Name</label>
                 <input type="text" name="name" id="name" className="form-control" required />

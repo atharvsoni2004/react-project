@@ -1,120 +1,145 @@
-import React, { useState } from 'react';
+import { useEffect, useState } from "react";
+import Menu from "./Menu";
+import { Link } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import getBase from "./api";
-import axios from "axios";
+import axios from 'axios';
 import { NetworkError, showError, showMessage } from "./toast-message";
 import { ToastContainer } from "react-toastify";
-import { useCookies } from 'react-cookie';
-import { useNavigate } from "react-router-dom";
-
-export default function DoctorLogin() {
+import VerifyLogin from "./VerifyLogin";
+import { useCookies } from "react-cookie";
+export default function AdminAssitant() {
+    let [cookies, setCookie, removeCookie] = useCookies(['theeasylearn']);
+    var [isDataFetched,setIsDataFetched] = useState(false);
+    VerifyLogin();
+    //create variable from parameters passed with route
+    let { doctorid } = useParams();
+    console.log(doctorid);
+    //create state array
+    let [assistants, setAssitant] = useState([]);
+    //create state variable
+    let [doctorname, setDoctorName] = useState();
     
-    let [email,setEmail] = useState();
-    let [password,setPassword] = useState();
-    let navigate = useNavigate();
-    let [cookies,setCookie,removeCookie] = useCookies('theeasylearn');
-    let verifyLogin = function(e)
-    {
-        e.preventDefault();
-        console.log(email,password);
-        let apiAddress = getBase() + "doctor_login.php";
-        console.log(apiAddress);
-        let form = new FormData();
-        form.append("email",email);
-        form.append("password",password);
+    let deleteAssitant = function (assistantid) {
+        console.log(assistantid);
+        let apiAddress = getBase() + "delete_assistance.php?id=" + assistantid;
         axios({
-            method:'post',
-            url:apiAddress,
+            method:'get',
             responseType:'json',
-            data:form
+            url:apiAddress
         }).then((response) => {
             console.log(response.data);
             let error = response.data[0]['error'];
             if(error !== 'no')
-            {
                 showError(error);
-            }
             else 
             {
                 let success = response.data[1]['success'];
                 let message = response.data[2]['message'];
-                if(success === 'no')
-                {
-                    showError(message);
-                }
-                else 
+                if(success === 'yes')
                 {
                     showMessage(message);
-                    let doctorid = response.data[3]['id'];
-                    setCookie("doctorid",doctorid);
-                    //console.log(cookies['doctorid']);
-                    //pause code for 3 seconds
-                    setTimeout(() => {
-                        navigate("/admin-appointments/" + doctorid);
-                    },3000);
+                    let temp = assistants.filter((item) => {
+                        if(item.id !== assistantid)
+                            return item;
+                    });
+                    setAssitant(temp);
                 }
             }
         }).catch((error) => {
-            console.log(error);
-            NetworkError(error);
+            showError('could not contact server...');
         })
     }
+    let DisplayLinks = function (props) {
+        if (cookies['doctorid'] !== undefined)
+            return (<><Link title="edit assitant" to={"/doctor-edit-assistant/" + props.assistantid}><i className="fa fa-pencil fa-2x" /></Link>
+                <Link title="remove assitant"
+                    to=""
+                    onClick={(e) => deleteAssitant(props.assistantid)}><i className="fa fa-trash fa-2x" /></Link></>)
+    }
+    //create inner function 
+    let displayAssitant = function (item) {
+        return (<tr>
+            <td>{item.id}</td>
+            <td>{item.name}
+            </td>
+            <td>
+                {item.email}
+            </td>
+            <td>
+                <DisplayLinks assistantid={item.id} />
+            </td>
+        </tr>);
+    }
+    let NoAssitantFound = function () {
+        return (<tr><td colSpan='4' className="text-center text-danger fs-3">No Assitant Added</td></tr>)
+    }
+
+    useEffect(() => {
+        if (isDataFetched === false) {
+            let apiAddress = getBase() + "assitant.php?doctorid=" + doctorid;
+            console.log(apiAddress);
+            //api calling using axios
+            axios({
+                url: apiAddress,
+                method: 'get',
+                responseType: 'json',
+            }).then((response) => {
+                console.log(response.data);
+                //create variable to store error 
+                let error = response.data[0]['error'];
+                if (error !== 'no')
+                    showError(error);
+                else if (response.data[1]['total'] == 0)
+                    showError('no assitant found');
+                else {
+                    response.data.splice(0, 2);
+                    setAssitant(response.data);
+                    setDoctorName(response.data[0]['doctorname']);
+                    setIsDataFetched(true);
+                }
+            }).catch((error) => {
+                NetworkError(error);
+            })
+        }
+    });
+    let AddAssitant = function () {
+        if (cookies['doctorid'] !== undefined)
+            return (<Link to="/doctor-add-assistant" className="btn btn-light">Add Assitant <i className="fa fa-save" /></Link>)
+    }
     return (
-        <main>
-            <div className="container">
+        <>
+            <Menu />
+            {/* functional components */}
+            <main id="main" className="main">
                 <ToastContainer />
-                <section className="section register min-vh-100 d-flex flex-column align-items-center justify-content-center py-4">
-                    <div className="container">
-                        <div className="row justify-content-center">
-                            <div className="col-12">
-                                <div className="d-flex justify-content-center py-4">
-                                    <a href="index.html" className="d-flex align-items-center w-auto">
-                                        <img src="../logo.png" alt="" height="64px" />
-                                        <span className="d-none d-lg-block h2">Online Doctor Appointment</span>
-                                    </a>
-                                </div>
-                            </div>
-                            <div className="col-lg-6 col-md-6 d-flex flex-column align-items-center justify-content-center">
-                                <div className="card mb-3">
-                                    <div className="card-body">
-                                        <div className="py-1">
-                                            <h6 className="card-title text-center pb-0 fs-4">Login</h6>
-                                        </div>
-                                        <form className="row g-3" onSubmit={verifyLogin}>
-                                            <div className="col-12">
-                                                <label htmlFor="yourUsername" className="form-label">Email</label>
-                                                <div className="input-group has-validation">
-                                                    <span className="input-group-text" id="inputGroupPrepend">@</span>
-                                                    <input type="email" name="email" 
-                                                    value={email} 
-                                                    onChange={(e) => setEmail(e.target.value)}
-                                                    className="form-control" id="yourUsername" required />
-                                                </div>
-                                            </div>
-
-                                            <div className="col-12">
-                                                <label htmlFor="yourPassword" className="form-label">Password</label>
-                                                <input type="password" name="password" 
-                                                value={password} 
-                                                onChange={(e) => setPassword(e.target.value)}
-                                                className="form-control" id="yourPassword" required />
-                                            </div>
-
-                                            <div className="col-12 d-flex justify-content-between">
-                                                <button className="btn btn-primary w-100" type="submit">Doctor Login</button>&nbsp;
-                                                <button className="btn btn-success w-100" type="submit">Assistant Login</button>
-                                            </div>
-                                            <p className="text-end">
-                                                <a href="doctor-forgot-password.html">Forgot password</a>
-                                            </p>
-                                        </form>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                <div className="pagetitle">
+                    <h1>
+                        Doctor Management
+                    </h1>
+                </div>{/* End Page Title */}
+                <div className="card shadow">
+                    <div className="card-header text-bg-primary d-flex justify-content-between">
+                        <h5>Assitant of  ({doctorname})</h5>
+                        <AddAssitant />
                     </div>
-                </section>
-
-            </div>
-        </main>
+                    <div className="card-body">
+                        <table className="table table-bordered table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Sr no</th>
+                                    <th>Name</th>
+                                    <th>Email</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {(assistants.length > 0) ? assistants.map((item) => displayAssitant(item)) : NoAssitantFound()}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </main>
+        </>
     );
 }

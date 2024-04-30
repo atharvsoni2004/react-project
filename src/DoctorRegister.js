@@ -92,7 +92,7 @@ export default function DoctorRegister() {
                                             </div>
                                             <div className="col-sm-6 col-12 mt-sm-2">
                                                 <label htmlFor="yourEmail" className="form-label">Your Registeration No</label>
-                                                <input type="email" name="email" className="form-control" id="yourEmail" value={regno}
+                                                <input type="text" name="regno" className="form-control" id="yourEmail" value={regno}
                                                     onChange={(e) => setRegno(e.target.value)} required />
                                                 <div className="invalid-feedback">Please enter a valid Email adddress!</div>
                                             </div>
