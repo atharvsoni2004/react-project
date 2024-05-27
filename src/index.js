@@ -7,6 +7,7 @@ import DoctorForgotPassword from './DoctorForgotPassword';
 import DoctorRegister from './DoctorRegister';
 import DoctorLogin from './DoctorLogin';
 import AdminAppointment from './AdminAppointment';
+import AdminPackage from './AdminPackage';
 import Logout from './logout';
 import AdminAssitant from './AdminAssitant';
 import AdminChangePassword from './AdminChangePassword';
@@ -17,7 +18,6 @@ import DoctorEditAssistant from './DoctorEditAssistant';
 import DoctorEditPackage from './DoctorEditPackage';
 import AdminDoctorManagement from './AdminDoctorManagement';
 import DoctorProfile from './Doctorprofile';
-import AdminPackage from './AdminPackage';
 import { withCookies } from 'react-cookie';
 
 import NoPageFound from './NoPageFound';
@@ -25,7 +25,8 @@ import NoPageFound from './NoPageFound';
 function MyRoutes() {
     return (<BrowserRouter>
         <Routes>
-            <Route index path='/' element={<AdminLogin />} /> 
+            {/* <Route index path='/' element={<Simplelogin />} />  */}
+             <Route index path='/' element={<AdminLogin />} />  
             <Route path='/admin-forgot' element={<AdminForgotPassword />} /> 
             <Route path='/doctor-forgot' element={<DoctorForgotPassword />} /> 
             <Route path='/doctor-register' element={<DoctorRegister />} /> 
@@ -36,6 +37,7 @@ function MyRoutes() {
             <Route path='/admin-change-password' element={<AdminChangePassword />} /> 
             <Route path='/admin-compose-email' element={<AdminComposeEmail />} /> 
             <Route path='/doctor-add-assistant' element={<DoctorAddAssistant />} />
+            <Route path='/admin-package' element={<AdminPackage/>} />
             <Route path='/doctor-edit-assistant' element={<DoctorEditAssistant />} />
             <Route path='/doctor-add-package' element={<DoctorAddPackage />} />
             <Route path='/doctor-edit-package' element={<DoctorEditPackage />} />
